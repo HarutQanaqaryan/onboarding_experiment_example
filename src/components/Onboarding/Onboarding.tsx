@@ -1,17 +1,23 @@
+import { useCallback } from "react";
+
 import { BookOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { useCallback } from "react";
+import Joyride, {
+  STATUS,
+  type CallBackProps,
+  type Status,
+} from "react-joyride";
 import { useLocation } from "react-router-dom";
+
 import { allOnboardingSteps } from "../../constants/onboardingSteps";
-import { useOnboarding } from "./hooks/useOnboarding";
-import { useOnboardingSteps } from "./hooks/useOnboardingSteps";
-import Joyride, { STATUS, type CallBackProps, type Status } from "react-joyride";
+
 import { joyrideStyles, locale } from "./consts";
+import { useOnboarding } from "./hooks/useOnboarding";
 import { onboardingController } from "./services";
+import "./onboarding.css";
 
 export const Onboarding = () => {
-  const { config, isRunning, setIsRunning } = useOnboarding();
-  const { steps } = useOnboardingSteps(config);
+  const { isRunning, onFinish, steps } = useOnboarding();
   const location = useLocation();
 
   const restartOnboarding = useCallback(() => {
@@ -33,8 +39,7 @@ export const Onboarding = () => {
     const statuses: Status[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (statuses.includes(status) || !steps?.length) {
-      onboardingController.stopOnboarding(config?.key);
-      setIsRunning(false);
+      onFinish();
     }
   };
 

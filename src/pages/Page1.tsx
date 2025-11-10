@@ -1,8 +1,10 @@
 import { useState } from 'react';
+
 import { Card, Row, Col, Button, Typography, Space } from 'antd';
+
+import { InfoModal } from '../components/Modal/InfoModal';
 import { useAutoOnboarding } from '../components/Onboarding/hooks/useAutoOnboarding';
 import { HOME_ONBOARDING_STEPS } from '../constants/onboardingSteps';
-import { InfoModal } from '../components/Modal/InfoModal';
 
 const { Title } = Typography;
 

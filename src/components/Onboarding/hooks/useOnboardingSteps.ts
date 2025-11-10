@@ -1,5 +1,7 @@
 import { useMemo } from "react";
+
 import { setupMutationObserver } from "../utils";
+
 import type { OnboardingState, OnboardingStep } from "../types";
 
 interface UseOnboardingSteps {

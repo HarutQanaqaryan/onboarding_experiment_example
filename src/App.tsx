@@ -1,9 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import { Layout } from 'antd';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import { Header } from './components/Layout/Header';
 import { Page1 } from './pages/Page1';
 import { Page2 } from './pages/Page2';
-import { Header } from './components/Layout/Header';
 
 const { Content } = Layout;
 

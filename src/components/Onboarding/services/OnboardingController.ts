@@ -5,11 +5,6 @@ class OnboardingController {
 
   setOnboardingSubscriber(callback: OnboardingSubscriber) {
     this.subscriber = callback;
-    return () => {
-      if (this.subscriber === callback) {
-        this.subscriber = null;
-      }
-    };
   }
 
   startOnboarding(config: OnboardingConfig) {

@@ -1,7 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useOnboardingSteps } from "./useOnboardingSteps";
-import { isOnboardingFinished } from "../utils";
+
 import { onboardingController } from "../services";
+import { isOnboardingFinished } from "../utils";
+
+import { useOnboardingSteps } from "./useOnboardingSteps";
+
 import type { OnboardingConfig } from "../types";
 
 export const useOnboarding = () => {
@@ -18,30 +21,28 @@ export const useOnboarding = () => {
         onboardingRef.current = setTimeout(() => {
           setOnboardingState(config);
           setIsRunning(true);
-        }, 10);
+        }, 100);
       }
     },
     [isRunning]
   );
 
   useEffect(() => {
-    const unsubscribe = onboardingController.setOnboardingSubscriber(
-      handleOnboardingConfig
-    );
+    onboardingController.setOnboardingSubscriber(handleOnboardingConfig);
+  }, [handleOnboardingConfig]);
 
-    return () => {
-      unsubscribe();
-      mutationObserver?.disconnect();
-      if (onboardingRef.current) {
-        clearTimeout(onboardingRef.current);
-      }
-    };
-  }, [handleOnboardingConfig, mutationObserver]);
+  const onFinish = useCallback(() => {
+    setIsRunning(false);
+    mutationObserver?.disconnect();
+    onboardingController.stopOnboarding(onboardingState?.key);
+    if (onboardingRef.current) {
+      clearTimeout(onboardingRef.current);
+    }
+  }, [mutationObserver, onboardingState?.key]);
 
   return {
-    config: onboardingState,
     isRunning,
     steps,
-    setIsRunning,
+    onFinish,
   };
 };

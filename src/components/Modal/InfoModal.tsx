@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Modal, Button } from "antd";
 
 interface InfoModalProps {
@@ -18,6 +19,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
       ]}
       width={700}
       height={"fit-content"}
+      transitionName=""
     >
       <div id="modal-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis magni

@@ -1,4 +1,5 @@
 import { Card, Row, Col, Typography } from "antd";
+
 import { useAutoOnboarding } from "../components/Onboarding/hooks/useAutoOnboarding";
 import { ABOUT_ONBOARDING_STEPS } from "../constants/onboardingSteps";
 
