@@ -2,20 +2,19 @@ import { useMemo } from "react";
 
 import { setupMutationObserver } from "../utils";
 
-import type { OnboardingState, OnboardingStep } from "../types";
+import type { OnboardingConfig, OnboardingStep } from "../types";
 
 interface UseOnboardingSteps {
   steps: OnboardingStep[];
   mutationObserver?: MutationObserver;
 }
 export const useOnboardingSteps = (
-  config: OnboardingState | null
+  config: OnboardingConfig | null
 ): UseOnboardingSteps => {
   return useMemo(() => {
     if (!config) {
       return { steps: [] };
     }
-    let mutationObserver = null;
     const { steps } = config;
 
     const renderedSteps = steps.filter((step) =>
@@ -26,9 +25,8 @@ export const useOnboardingSteps = (
       (step) => step.waitForElement && !document?.querySelector(step.target)
     );
 
-    mutationObserver = setupMutationObserver({
+    const mutationObserver = setupMutationObserver({
       steps: waitForElementSteps,
-      run: false,
     });
 
     return { steps: renderedSteps, mutationObserver };

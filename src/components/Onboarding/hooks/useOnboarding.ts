@@ -13,7 +13,7 @@ export const useOnboarding = () => {
   const [isRunning, setIsRunning] = useState(false);
   const onboardingRef = useRef<number>(null);
 
-  const { steps, mutationObserver } = useOnboardingSteps(onboardingState);
+  const { steps } = useOnboardingSteps(onboardingState);
 
   const handleOnboardingConfig = useCallback(
     (config: OnboardingConfig) => {
@@ -33,12 +33,11 @@ export const useOnboarding = () => {
 
   const onFinish = useCallback(() => {
     setIsRunning(false);
-    mutationObserver?.disconnect();
     onboardingController.stopOnboarding(onboardingState?.key);
     if (onboardingRef.current) {
       clearTimeout(onboardingRef.current);
     }
-  }, [mutationObserver, onboardingState?.key]);
+  }, [onboardingState?.key]);
 
   return {
     isRunning,

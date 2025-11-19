@@ -10,7 +10,6 @@ export interface OnboardingStep {
 export interface OnboardingConfig {
   key?: string;
   steps: OnboardingStep[];
-  run?: boolean;
   isObserver?: boolean;
 }
 
@@ -22,7 +21,6 @@ export interface OnboardingState {
 export interface OnboardingConfig {
   key?: string;
   steps: OnboardingStep[];
-  run?: boolean;
   isObserver?: boolean;
 }
 

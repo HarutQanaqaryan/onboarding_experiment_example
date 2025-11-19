@@ -4,7 +4,6 @@ import type { OnboardingConfig } from "../types";
 
 export const setupMutationObserver = ({
   steps,
-  run,
 }: OnboardingConfig): MutationObserver => {
   const observer = new MutationObserver((mutations) => {
     const renderedElems = steps?.filter((el) =>
@@ -13,7 +12,7 @@ export const setupMutationObserver = ({
 
     mutations.forEach((mutation) => {
       if (mutation.type === "childList") {
-        if (renderedElems?.length && !run) {
+        if (renderedElems?.length) {
           onboardingController.startOnboarding({
             steps: renderedElems,
             isObserver: true,
